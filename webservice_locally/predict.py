@@ -7,7 +7,7 @@ from datetime import datetime
 
 ### Helper functions
 # Time of the day in minutes as feature
-def get_days_minutes(time_now):
+def get_days_minutes(date_time):
     '''time_str'''
     return date_time.hour * 60 + date_time.minute
 
@@ -37,7 +37,7 @@ def load_model(model_name):
 # Return a prediction
 def predict(model_name, data):
   
-    load_dotenv()
+    load_dotenv("../.env")
     MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
     SA_KEY = os.getenv("SA_KEY")
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = SA_KEY
