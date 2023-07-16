@@ -1,0 +1,11 @@
+pydantic
+fastapi
+mlflow
+uvicorn
+jupyter
+python-dotenv
+google-cloud-storage
+click
+pandas
+pyarrow
+scikit-learn==1.2.2
