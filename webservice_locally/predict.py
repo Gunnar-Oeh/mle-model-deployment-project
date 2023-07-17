@@ -3,6 +3,7 @@ import mlflow
 import os
 from dotenv import load_dotenv
 import numpy as np
+import pandas as pd
 from datetime import datetime
 
 ### Helper functions
@@ -19,7 +20,7 @@ def prepare_features(ride):
     features = {}
 
     ### Transform given locatio_ids to a single trip route
-    #categorical_features = ["PULocationID", "DOLocationID"]
+    # syntax object.value following pydantic syntax
     features['trip_route'] = str(ride.PULocationID) + "_" + str(ride.DOLocationID)
     features["trip_distance"] = ride.trip_distance
     features["pickup_time_minutes"] = get_days_minutes(now_time)
@@ -28,9 +29,9 @@ def prepare_features(ride):
     return features
 
 # Load the Model from ML-Flow
-def load_model(model_name):
-    stage = "Production"
-    model_uri = f"models:/{model_name}/{stage}"
+def load_model(run_id):
+    #stage = "Production"
+    model_uri = f"runs:/{run_id}/model"
     model = mlflow.pyfunc.load_model(model_uri)
     return model
 
@@ -44,7 +45,8 @@ def predict(model_name, data):
     
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     model_input = prepare_features(data)
+    # model_input = pd.DataFrame(model_input)
     model = load_model(model_name)
-    prediction = model.predict(model_input) # preprocessing pipeline (vectorization and encoding) is part of the pipeline
+    prediction = model.predict(model_input) # preprocessing pipeline (vectorization and encoding) is part of the model
     return float(prediction[0])             # predicted value
 
