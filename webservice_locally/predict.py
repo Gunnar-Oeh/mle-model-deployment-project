@@ -45,7 +45,7 @@ def predict(model_name, data):
     
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     model_input = prepare_features(data)
-    # model_input = pd.DataFrame(model_input)
+    model_input = pd.DataFrame(model_input, index=[0])
     model = load_model(model_name)
     prediction = model.predict(model_input) # preprocessing pipeline (vectorization and encoding) is part of the model
     return float(prediction[0])             # predicted value
