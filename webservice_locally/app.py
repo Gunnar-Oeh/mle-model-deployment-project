@@ -13,7 +13,7 @@ def index():
 @app.post("/predict", response_model=TaxiRidePrediction)
 def predict_duration(data: TaxiRide): # Data beeing send in the model of TaxiRide 
     # (RideID, PU, DO, distance)
-    prediction = predict("lr-ride-duration", data) # makes pre-processing and prediction of
+    prediction = predict("350d0a6fd4884d47983e1b2b244679f9", data) # makes pre-processing and prediction of
     # one instance 
     # In the Return-statement, the input-data of the post-method in the data-model of
     # TaxiRide is unpacked into the data-model of TaxiRidePrediction, which inherits from TaxiRide
